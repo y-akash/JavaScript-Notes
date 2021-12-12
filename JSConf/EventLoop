@@ -1,0 +1,34 @@
+What the heck is the event loop anyway? | Philip Roberts | JSConf EU
+Oct 9, 2014
+https://www.youtube.com/watch?v=8aGhZQkoFbQ
+
+JavaScript
+It's a single threaded programming language.
+JS runtime can do one thing at a time.
+
+What is V8
+V8 is an open-source JavaScript engine developed by the Chromium Project for Google Chrome and Chromium web browsers.
+WebAPI's {DOM, setTimeout, ajax, ....} => these are not in V8.
+
+Me : What is JavaScript?
+JS : Single threaded, non-blocking, asynchronous, concurrent language.
+I have call stack, an Event Loop, a callback queue, some other apis and stuff.
+Me : Hey V8, do you have a call stack, an Event Loop, a callback queue, some other apis and stuff?
+V8 : I have call stack & heap. WTF are those other thing.
+
+To achieve Asynchronous callback we have CONCURRENCY & the EVENT LOOP
+
+JS runtime can do one thing at a time so how ajax & asynchronous thing happenig?
+the reason is browser, the browser gives us the othr thing i.e. webAPI's. these are effectivelyy a thread we can access like a thread.
+
+example code => 1. console.log("Hi"); 2. AssyncCode; 3. console.log("Hello");
+
+the above assyncCode is like we are requesting data from the server.
+first line 1 comes in a stack and runs
+than the second line comes but its asynchronous so it moves to WEBAPI's sections and wait for server response.
+the 3 line come in a stack and runs now stack is empty.
+when we get the response it directly not goes to stack bcoz it will come between the other stuff.
+so it goes to TASK QUEUE after completion of WEBAPI's, after this EVENT LOOP comes into the picture.
+
+EVENT LOOP
+It look at the STACK and TASK QUEUE, if the STACK is empty than EVENT LOOP runs & it takes first thing from the TASK QUEUE & pushes on to the STACK & effectively runs it.
